@@ -22,25 +22,9 @@ import pandas as pd
 
 #-------------------------------------------Experimental Settings with parser--------------------------------------------#
 parser = argparse.ArgumentParser()                                                                                       #
-# # for ISFD21                                                                                                             #
-# parser.add_argument("--config", default='configurations/ISFD21_aastgcn.conf',                                          #
-#                     type=str,help="configuration file path")                                                           #                                                                                          #
-# for SSFD21                                                                                                             #
-# parser.add_argument("--config", default='configurations/SSFD21_aastgcn.conf', type=str,                                  #
-#                     help="configuration file path")                                                                      #
-
-
-# for NASDAQ
-# parser.add_argument("--config", default='configurations/NASDAQ_aastgcn.conf', type=str,help='configuration file path')
-
-# for NYSE
-# parser.add_argument("--config", default='configurations/NYSE_aastgcn.conf', type=str,help='configuration file path')
 
 # for ACL18
 parser.add_argument("--config", default='configurations/ACL18_aastgcn.conf', type=str,help='configuration file path')
-
-# for ADGAT
-# parser.add_argument("--config", default='configurations/ADGAT_aastgcn.conf', type=str,help='configuration file path')
 
 # for KDD17
 # parser.add_argument("--config", default='configurations/KDD17_aastgcn.conf', type=str,help='configuration file path')
@@ -67,13 +51,13 @@ else:
 
 std_method = StandardScaler()
 
-# from ISFD21/SSFD21_astgcn.conf [Data]
+# from .conf [Data]
 num_of_vertices = int(data_config['num_of_vertices'])
 num_for_predict = int(data_config['num_for_predict'])
 len_input = int(data_config['len_input'])
 dataset_name = data_config['dataset_name']
 
-# from ISFD21/SSFD21_aastgcn.conf [Training]
+# from .conf [Training]
 model_name = training_config['model_name']
 ctx = training_config['ctx']
 os.environ["CUDA_VISIBLE_DEVICES"] = ctx
@@ -86,7 +70,6 @@ epochs = int(training_config['epochs'])
 start_epoch = int(training_config['start_epoch'])
 batch_size = int(training_config['batch_size'])
 
-# astgcn's time level is 3 (week+day+hour), while time-level for aastgcn is 1 (day)
 # expanding the data may further improve model performance
 num_of_hours = int(training_config['time_level'])
 time_strides = num_of_hours #
@@ -102,25 +85,7 @@ print('folder_dir:', folder_dir)
 params_path = os.path.join('experiments', dataset_name, folder_dir)
 print('params_path:', params_path)
 
-#-------------------------------------------Load data for AASTGCN--------------------------------------------#
-
-## load ISFD21 adj just for astgcn
-## adj_mx = np.load('./data/ISFD21/distance.npy') # static_adj_matrix with history price data
-# adj normalized just for astgcn
-# adj_mx = get_normalized_adj(adj_mx)
-
-
-# load ISFD21/SSFD21 data
-# train_loader, train_target_tensor, val_loader, val_target_tensor, test_loader, test_target_tensor, \
-# _mean, _std = load_graphdata_channel_stp(dataset_name, num_timesteps_input=len_input,
-#                                                        num_timesteps_output=num_for_predict,
-#                                                        DEVICE=DEVICE, batch_size=32)
-
-# train_loader, train_target_tensor, val_loader, val_target_tensor, test_loader, test_target_tensor,\
-#     = load_graphdata_channel_stp_standard(dataset_name, num_timesteps_input=len_input,
-#                                                        num_timesteps_output=num_for_predict,
-#                                                        DEVICE=DEVICE, batch_size=32, scaler_method=std_method)
-
+#-------------------------------------------Load data for AASTHGCN--------------------------------------------#
 
 train_loader, train_target_tensor, val_loader, val_target_tensor, test_loader, test_target_tensor = load_graphdata_channel_stp(dataset_name, num_timesteps_input=len_input, num_timesteps_output=num_for_predict, DEVICE=DEVICE, batch_size=32)
     
@@ -293,15 +258,12 @@ def predict_main_standard(global_step, data_loader, data_target_tensor, scaler_m
 
     net.load_state_dict(torch.load(params_filename))
 
-    # predict_and_save_results_mstgcn(net, data_loader, data_target_tensor, global_step, _mean, _std, params_path, type)
     predict_and_save_results_mstgcn_standard(net, data_loader, data_target_tensor, global_step, params_path, type,scaler_method=scaler_method)
 
 
 if __name__ == "__main__":
 
     train_main()
-
-    # predict_main(7, test_loader, test_target_tensor, _mean, _std, 'test')
 
 
 

@@ -9,35 +9,7 @@ import pickle
 import time
 from sklearn.preprocessing import StandardScaler
 DEVICE = torch.device('cuda:0')
-'''
-# step0 添加一个全局标准化函数，后面也用这个std_method 进行数据还原
-# prepare dataset
-parser = argparse.ArgumentParser()
-parser.add_argument("--config", default='./configurations/ISFD21_aastgcn.conf', type=str,
-                    help="configuration file path")
-args = parser.parse_args()
-config = configparser.ConfigParser()
-print('Read configuration file: %s' % (args.config))
-config.read(args.config)
-data_config = config['Data']
-training_config = config['Training']
 
-# adj_filename = data_config['adj_filename']
-# graph_signal_matrix_filename = data_config['graph_signal_matrix_filename']
-if config.has_option('Data', 'id_filename'):
-    id_filename = data_config['id_filename']
-else:
-    id_filename = None
-
-num_of_vertices = int(data_config['num_of_vertices'])
-# points_per_hour = int(data_config['points_per_hour']) # Abandoned
-num_for_predict = int(data_config['num_for_predict'])
-len_input = int(data_config['len_input'])
-dataset_name = data_config['dataset_name']
-# num_of_weeks = int(training_config['num_of_weeks']) # Abandoned
-# num_of_days = int(training_config['num_of_days']) # Abandoned
-# num_of_hours = int(training_config['num_of_hours'])  # Abandoned
-'''
 # get file name list in file_dir
 def file_name(file_dir):
     file_list = []
@@ -47,251 +19,6 @@ def file_name(file_dir):
             file_list.append(file)
     file_list.sort()
     return file_list
-
-def load_st_dataset(dataset):
-    #output B, N, D
-    if dataset == 'SSFD21':
-        # SSFD-DATA-110 Nodes
-        ###########SSFD Sector##############
-        # Sector1
-        # Code_list = ['APD','BBL','BHP','CTA-PB','ECL','LIN','RIO','SCCO','SHW','VALE'] # 10
-        # Sector2
-        # Code_list = ['ATVI','BIDU','CMCSA','DIS','GOOG','NFLX','NTES','T','TMUS','VZ'] # 10
-        # Sector3
-        # Code_list = ['AMZN','BKNG','HD','LOW','MCD','MELI','NKE','SBUX','TM','TSLA'] # 10
-        # Sector4
-        # Code_list = ['BUD','COST','DEO','EL','KO','PEP','PG','PM','UL','WMT'] # 10
-        # Sector5
-        # Code_list = ['BP','COP','CVX','ENB','EQNR','PTR','RDS-B','SNP','TOT','XOM'] # 10
-        # Sector6
-        # Code_list = ['BAC','BML-PG','BML-PL','BRK-B','JPM','LFC','MA','MS','V','WFC'] # 10
-        # Sector7
-        # Code_list = ['ABT','JNJ','LLY','MDT','MRK','NVO','NVS','PFE','TMO','UNH'] # 10
-        # Sector8
-        # Code_list = ['BA','CAT','DE','GE','HON','LMT','MMM','RTX','UNP','UPS'] # 10
-        # Sector9
-        # Code_list = ['AMT','CSGP','DLR','EQIX','PLD','SBAC','SPG','SPG-PJ','WELL','WY'] # 10
-        # Sector10
-        # Code_list = ['AAPL','ADBE','ASML','AVGO','CRM','CSCO','INTC','MSFT','NVDA','TSM'] # 10
-        # Sector11
-        # Code_list = ['AEP','D','ES','EXC','NEE','NGG','PEG','SO','SRE','XEL'] # 10
-        # # Code_list = file_name('../data/SHY21-Arima-back')
-
-        ##############################
-        Code_list = file_name('./data/SSFD21-Arima')
-
-        ###############################
-        data_path = os.path.join('./data/SSFD21/SSFD-V1_11.csv')
-        df = pd.read_csv(data_path)
-        df.dropna(axis=0, how='any', inplace=True)
-        df_group_data = pd.DataFrame()  # 存放group的Features
-        df_label_data = pd.DataFrame()  # 存放features对应的label 由于底层是回归任务，因此对应的label是value形式
-        for code in Code_list:
-            # print(code)
-            df_code = df[(df['Code'] == code)]
-            df_code_adj_close = df_code['Adj Close'].values.tolist()
-            df_group_data[code] = df_code_adj_close
-            df_code_label = df_code['Label'].values.tolist()
-            df_label_data[code] = df_code_label
-        df_group_data = pd.DataFrame(df_group_data.values.T, index=df_group_data.columns, columns=df_group_data.index)
-        data = np.transpose([df_group_data.values])
-    elif dataset == 'ISFD21':
-        # SSFD-DATA-105 Nodes
-        ##########
-        # Sector1
-        # Code_list = ['AVD','CF','CTA-PA','CTA-PB','FMC','ICL','IPI','MOS','SMG'] # 9
-        # Sector2
-        Code_list = ['AMOV','AMX','BCE','CHT','ORAN','T','TMUS','TU','VOD','VZ'] # 10
-        # Sector3
-        # Code_list = ['ALV','BWA','DAN','DORM','GNTX','GT','LEA','LKQ','MGA','VC'] # 10
-        # Sector4
-        # Code_list = ['ADM','ALCO','BG','CALM','CHSCP','FDP','IBA','LMNR','TSN'] # 9
-        # Sector5
-        # Code_list = ['CEO','CLR','CNQ','COP','DVN','EOG','HES','MRO','OXY','PXD'] # 10
-        # Sector6
-        # Code_list = ['AMP','BAM','BEN','BK','BLK','BX','KKR','NTRS','STT','TROW'] # 10
-        # Sector7
-        # Code_list = ['CERN','CPSI','HMSY','HSTM','MDRX','NXGN','OMCL'] # 7
-        # Sector8
-        # Code_list = ['AIT','DXPE','FAST','GWW','LAWS','MSM','PKOH','SYX','WCC','WSO'] # 10
-        # Sector9
-        # Code_list = ['CBRE','CIGI','CSGP','CSR','FRPH','IRCP','JLL','KW','NTP','TCI'] # 10
-        # Sector10
-        # Code_list = ['ADSK','ANSS','CDNS','CRM','CTXS','INTU','PTC','SAP','SSNC','TYL'] # 10
-        # Sector11
-        # Code_list = ['AEP','DTE','DUK','ED','ES','NEE','PCG','SO','WFC','XEL'] #10
-
-        ##########
-        # Code_list = ['CDNS','CTXS','PTC','SAP','SSNC']
-        # Code_list = ['ADSK','ANSS','CRM','INTU','TYL']
-        #########################################
-        # Code_list = file_name('./data/ISFD21-Arima')
-        data_path = os.path.join('./data/ISFD21/ISFD-V1_11.csv')
-        df = pd.read_csv(data_path)
-        df.dropna(axis=0, how='any', inplace=True)
-        df_group_data = pd.DataFrame()  # 存放group的Features
-        df_label_data = pd.DataFrame()  # 存放features对应的label 由于底层是回归任务，因此对应的label是value形式
-        for code in Code_list:
-            df_code = df[(df['Code'] == code)]
-            df_code_adj_close = df_code['Adj Close'].values.tolist()
-            df_group_data[code] = df_code_adj_close
-            df_code_label = df_code['Label'].values.tolist()
-            df_label_data[code] = df_code_label
-
-        df_group_data = pd.DataFrame(df_group_data.values.T, index=df_group_data.columns, columns=df_group_data.index)
-
-        data = np.transpose([df_group_data.values])
-    else:
-        raise ValueError
-    if len(data.shape) == 2:
-        data = np.expand_dims(data, axis=-1)
-    print('Load %s Dataset shaped: ' % dataset, data.shape, data.max(), data.min(), data.mean(), np.median(data))
-
-    # Normalization using Z-score method
-    X = data
-    print('X.shape:{}'.format(X.shape))
-    # means = np.mean(X, axis=(0, 2))
-    means = np.mean(X, axis=(0, 1))
-
-    X = X - means.reshape(1, -1, 1)
-    # stds = np.std(X, axis=(0, 2))
-    stds = np.std(X, axis=(0, 1))
-    X = X / stds.reshape(1, -1, 1)
-
-    means = means.reshape(1,1,1,1)
-    stds = stds.reshape(1,1,1,1)
-    print('means:{}'.format(means))
-    print('stds:{}'.format(stds))
-    return X,means,stds,data
-
-
-def load_st_dataset_standard(dataset):
-    #output B, N, D
-    if dataset == 'SSFD21':
-        # SSFD-DATA-110 Nodes
-        ###########SSFD Sector##############
-        # Sector1
-        # Code_list = ['APD','BBL','BHP','CTA-PB','ECL','LIN','RIO','SCCO','SHW','VALE'] # 10
-        # Sector2
-        # Code_list = ['ATVI','BIDU','CMCSA','DIS','GOOG','NFLX','NTES','T','TMUS','VZ'] # 10
-        # Sector3
-        # Code_list = ['AMZN','BKNG','HD','LOW','MCD','MELI','NKE','SBUX','TM','TSLA'] # 10
-        # Sector4
-        # Code_list = ['BUD','COST','DEO','EL','KO','PEP','PG','PM','UL','WMT'] # 10
-        # Sector5
-        # Code_list = ['BP','COP','CVX','ENB','EQNR','PTR','RDS-B','SNP','TOT','XOM'] # 10
-        # Sector6
-        # Code_list = ['BAC','BML-PG','BML-PL','BRK-B','JPM','LFC','MA','MS','V','WFC'] # 10
-        # Sector7
-        # Code_list = ['ABT','JNJ','LLY','MDT','MRK','NVO','NVS','PFE','TMO','UNH'] # 10
-        # Sector8
-        # Code_list = ['BA','CAT','DE','GE','HON','LMT','MMM','RTX','UNP','UPS'] # 10
-        # Sector9
-        # Code_list = ['AMT','CSGP','DLR','EQIX','PLD','SBAC','SPG','SPG-PJ','WELL','WY'] # 10
-        # Sector10
-        # Code_list = ['AAPL','ADBE','ASML','AVGO','CRM','CSCO','INTC','MSFT','NVDA','TSM'] # 10
-        # Sector11
-        # Code_list = ['AEP','D','ES','EXC','NEE','NGG','PEG','SO','SRE','XEL'] # 10
-        # # Code_list = file_name('../data/SHY21-Arima-back')
-
-        ##############################
-        Code_list = file_name('./data/SSFD21-Arima')
-
-        ###############################
-        data_path = os.path.join('./data/SSFD21/SSFD-V1_11.csv')
-        df = pd.read_csv(data_path)
-        df.dropna(axis=0, how='any', inplace=True)
-        df_group_data = pd.DataFrame()  # 存放group的Features
-        df_label_data = pd.DataFrame()  # 存放features对应的label 由于底层是回归任务，因此对应的label是value形式
-        for code in Code_list:
-            # print(code)
-            df_code = df[(df['Code'] == code)]
-            df_code_adj_close = df_code['Adj Close'].values.tolist()
-            df_group_data[code] = df_code_adj_close
-            df_code_label = df_code['Label'].values.tolist()
-            df_label_data[code] = df_code_label
-        df_group_data = pd.DataFrame(df_group_data.values.T, index=df_group_data.columns, columns=df_group_data.index)
-        data = np.transpose([df_group_data.values])
-    elif dataset == 'ISFD21':
-        # SSFD-DATA-105 Nodes
-        ##########
-        # Sector1
-        # Code_list = ['AVD','CF','CTA-PA','CTA-PB','FMC','ICL','IPI','MOS','SMG'] # 9
-        # Sector2
-        # Code_list = ['AMOV','AMX','BCE','CHT','ORAN','T','TMUS','TU','VOD','VZ'] # 10
-        # Sector3
-        # Code_list = ['ALV','BWA','DAN','DORM','GNTX','GT','LEA','LKQ','MGA','VC'] # 10
-        # Sector4
-        # Code_list = ['ADM','ALCO','BG','CALM','CHSCP','FDP','IBA','LMNR','TSN'] # 9
-        # Sector5
-        # Code_list = ['CEO','CLR','CNQ','COP','DVN','EOG','HES','MRO','OXY','PXD'] # 10
-        # Sector6
-        # Code_list = ['AMP','BAM','BEN','BK','BLK','BX','KKR','NTRS','STT','TROW'] # 10
-        # Sector7
-        # Code_list = ['CERN','CPSI','HMSY','HSTM','MDRX','NXGN','OMCL'] # 7
-        # Sector8
-        # Code_list = ['AIT','DXPE','FAST','GWW','LAWS','MSM','PKOH','SYX','WCC','WSO'] # 10
-        # Sector9
-        # Code_list = ['CBRE','CIGI','CSGP','CSR','FRPH','IRCP','JLL','KW','NTP','TCI'] # 10
-        # Sector10
-        # Code_list = ['ADSK','ANSS','CDNS','CRM','CTXS','INTU','PTC','SAP','SSNC','TYL'] # 10
-        # Sector11
-        # Code_list = ['AEP','DTE','DUK','ED','ES','NEE','PCG','SO','WFC','XEL'] #10
-
-        ##########
-        # Code_list = ['CDNS','CTXS','PTC','SAP','SSNC']
-        # Code_list = ['ADSK','ANSS','CRM','INTU','TYL']
-        #########################################
-        # Code_list = file_name('./data/ISFD21-Arima')
-        data_path = os.path.join('./data/ISFD21/ISFD-V1_11.csv')
-        df = pd.read_csv(data_path)
-        df.dropna(axis=0, how='any', inplace=True)
-        df_group_data = pd.DataFrame()  # 存放group的Features
-        df_label_data = pd.DataFrame()  # 存放features对应的label 由于底层是回归任务，因此对应的label是value形式
-        for code in Code_list:
-            df_code = df[(df['Code'] == code)]
-            df_code_adj_close = df_code['Adj Close'].values.tolist()
-            df_group_data[code] = df_code_adj_close
-            df_code_label = df_code['Label'].values.tolist()
-            df_label_data[code] = df_code_label
-
-        df_group_data = pd.DataFrame(df_group_data.values.T, index=df_group_data.columns, columns=df_group_data.index)
-
-        data = np.transpose([df_group_data.values])
-    else:
-        raise ValueError
-    if len(data.shape) == 2:
-        data = np.expand_dims(data, axis=-1)
-    print('Load %s Dataset shaped: ' % dataset, data.shape, data.max(), data.min(), data.mean(), np.median(data))
-
-    # 2021-07-05 update standardScaler-start
-    # standardScaler
-    std = StandardScaler()
-    x_stand = data.reshape(data.shape[0],data.shape[1])
-    print('x_stand.shape:{}'.format(x_stand.shape))
-    # x_stand_values = x_stand.values
-    x_stand_values_std = std.fit_transform(x_stand)
-    print('s_stand_values_std.mean:{}'.format(std.mean_))
-    mean_list = std.mean_
-    print(sum(mean_list)/10) # 这是原始用的mean_value  我们用股票全集的mean_value 来标准化数据？
-    # 2021-07-05 update standardScaler-end
-
-    # Normalization using Z-score method
-    X = data
-    print('X.shape:{}'.format(X.shape))
-    # means = np.mean(X, axis=(0, 2))
-    means = np.mean(X, axis=(0, 1))
-
-    X = X - means.reshape(1, -1, 1)
-    # stds = np.std(X, axis=(0, 2))
-    stds = np.std(X, axis=(0, 1))
-    X = X / stds.reshape(1, -1, 1)
-
-    means = means.reshape(1,1,1,1)
-    stds = stds.reshape(1,1,1,1)
-    print('means:{}'.format(means))
-    print('stds:{}'.format(stds))
-    return X,means,stds,data
 
 
 def generate_dataset(X, num_timesteps_input, num_timesteps_output):
@@ -352,21 +79,6 @@ def load_graphdata_channel_stp(Data_name,num_timesteps_input,num_timesteps_outpu
     Final Data prepare function for AASTGCN
     :return:
     """
-    # # load data-ISFD21
-    # X, means, stds, data = load_st_dataset(Data_name)
-
-    # for NASDAQ single feature classification
-    # X,Labels = load_ST_data_classification(data_path='./data/2013-01-01',market_name='NASDAQ',steps=1)
-    
-    # for NYSE single feature classification
-    # X,Labels = load_ST_data_classification(data_path='./data/2013-01-01',market_name='NYSE',steps=1)
-    
-    # for NASDAQ multi feature classification
-    # X,Labels = load_ST_data_classification_multi_feature(data_path='./data/2013-01-01',market_name='NASDAQ',steps=1)
-    
-    # for ACL18 multi feature classification
-    # X,Labels = load_ST_data_classification_multi_feature_ACL18(data_path='./data/ACL18/preprocessed/')
-
     # for ACL18 multi 11 features classification
     _,Labels = load_ST_data_classification_multi_feature_ACL18(data_path='./data/ACL18/preprocessed/')
     X = load_ST_data_classification_multi_11features_ACL18(data_path='./data/ACL18/ourpped/')
@@ -412,7 +124,7 @@ def load_graphdata_channel_stp(Data_name,num_timesteps_input,num_timesteps_outpu
     print('train_length:{}'.format(tmp_length_train))
     print('val_length:{}'.format(tmp_length_val))
     print('test_length:{}'.format(tmp_length_test))
-    # 应该是在这里进行数据的标准化处理。所以这个函数要接收一个standardscaler类，或者将standardscaler作为一个全局变量，处理其中数据
+
     train_original_data = X[:split_line1,:,:]
     val_original_data = X[split_line1:split_line2,:,:]
     test_original_data = X[split_line2:,:,:]
@@ -465,8 +177,6 @@ def load_graphdata_channel_stp(Data_name,num_timesteps_input,num_timesteps_outpu
     print('test_target.shape:{}'.format(test_target.shape))
     print(test_target[-10:,0,:])
 
-    # # load ISFD21-adj_matrix
-    # adj_mx = np.load('./data/ISFD21_adj.npy') # static_adj_matrix with history price data
 
     # ------- train_loader -------
     train_x_tensor = torch.from_numpy(train_x).type(torch.FloatTensor).to(DEVICE)  # (B, N, F, T)
@@ -624,11 +334,8 @@ def load_graphdata_channel_stp_standard(Data_name,num_timesteps_input,num_timest
 
     return train_loader, train_target_tensor, val_loader, val_target_tensor, test_loader, test_target_tensor
 
-# load_graphdata_channel_stp(num_timesteps_input=12, num_timesteps_output=12,DEVICE=DEVICE, batch_size=64)
 
-# load_st_dataset_standard("ISFD21")
-# 现在load_graph_channel_stp_standard 所得到的train/val/test数据的标准化方式就是正常逻辑的了
-# load_graphdata_channel_stp_standard("ISFD21",12,12,0,32,std_method)
+
 
 ##########################################################################
 
@@ -743,189 +450,6 @@ def load_ST_data(data_path, market_name, steps=1):
     # return eod_data, masks, ground_truth, base_price
     return X
 
-def load_ST_data_classification_err(data_path, market_name, steps=1):
-    stock_close_price_data = load_ST_data(data_path=data_path, market_name=market_name, steps=steps)  # (1245,840,1)
-    stock_close_price_data = np.squeeze(stock_close_price_data).T  # (840,1245) (stock_num,close_price)
-    print(stock_close_price_data.shape)
-    print(stock_close_price_data)
-    # 根据stock_close_price_data 生成标签，实际上就是做矩阵的差分
-    label_matrix = np.zeros([stock_close_price_data.shape[0], stock_close_price_data.shape[1] - 1])
-    print(label_matrix.shape)
-    for index in range(stock_close_price_data.shape[0]):
-        for col in range(label_matrix.shape[1]):
-            label_matrix[index][col] = stock_close_price_data[index][col + 1] - stock_close_price_data[index][col]
-            if label_matrix[index][col] >= 0:
-                label_matrix[index][col] = 1.0
-            elif label_matrix[index][col] < 0:
-                label_matrix[index][col] = 0.0
-    # 生成好标签后，再对应去掉最后一个交易日的数据因为没有labels
-    stock_close_price_data = stock_close_price_data[:, :-1]
-    # 接下来，如果取一段时间的数据，那我们只需要拿到数据尾部那行的labels就可以了
-    print(stock_close_price_data.shape)
-    print(label_matrix)
-    stock_close_price_data = stock_close_price_data.T
-    stock_close_price_data = np.expand_dims(stock_close_price_data,axis=-1)
-    label_matrix = label_matrix.T
-    return stock_close_price_data, label_matrix
-
-def load_ST_data_classification_err2(data_path, market_name, steps=1):
-    stock_close_price_data = load_ST_data(data_path=data_path, market_name=market_name, steps=steps)  # (1245,840,1)
-    stock_close_price_data = np.squeeze(stock_close_price_data).T  # (840,1245) (stock_num,close_price)
-    print(stock_close_price_data.shape)
-    print(stock_close_price_data)
-    # 根据stock_close_price_data 生成标签，实际上就是做矩阵的差分
-    label_matrix = np.zeros([stock_close_price_data.shape[0], stock_close_price_data.shape[1] - 1,2])
-    print(label_matrix.shape)
-    for index in range(stock_close_price_data.shape[0]):
-        for col in range(label_matrix.shape[1]):
-            temp = stock_close_price_data[index][col + 1] - stock_close_price_data[index][col]
-            if temp >= 0:
-                label_matrix[index][:] =[1.0,0.0]
-            else:
-                label_matrix[index][:] = [0.0,1.0]
-    # 生成好标签后，再对应去掉最后一个交易日的数据因为没有labels
-    stock_close_price_data = stock_close_price_data[:, :-1]
-    # 接下来，如果取一段时间的数据，那我们只需要拿到数据尾部那行的labels就可以了
-    # print(stock_close_price_data.shape)
-    # print(label_matrix)
-    stock_close_price_data = stock_close_price_data.T
-    stock_close_price_data = np.expand_dims(stock_close_price_data,axis=-1)
-    label_matrix = np.transpose(label_matrix,[1,0,2])
-    return stock_close_price_data, label_matrix
-##########################################################################
-def load_ST_data_classification(data_path, market_name, steps=1):
-    positive_sample = 0
-    negative_sample = 0
-    stock_close_price_data = load_ST_data(data_path=data_path, market_name=market_name, steps=steps)  # (1245,840,1)
-    stock_close_price_data = np.squeeze(stock_close_price_data).T  # (840,1245) (stock_num,close_price)
-    print(stock_close_price_data.shape)
-    print(stock_close_price_data)
-    # 根据stock_close_price_data 生成标签，实际上就是做矩阵的差分
-    # label_matrix = np.zeros([stock_close_price_data.shape[0], stock_close_price_data.shape[1] - 1,2])
-    label_matrix = np.zeros([stock_close_price_data.shape[1]-1, stock_close_price_data.shape[0],2]) # 1244,840
-   
-    for index in range(label_matrix.shape[1]):
-        for col in range(label_matrix.shape[0]-1):
-            temp = stock_close_price_data[index][col + 1] - stock_close_price_data[index][col]
-            if temp >= 0:
-                label_matrix[col,index,:] =[1.0,0.0]
-                positive_sample += 1
-            else:
-                label_matrix[col,index,] = [0.0,1.0]
-                negative_sample += 1
-    '''# 生成好标签后，再对应去掉最后一个交易日的数据因为没有labels
-    stock_close_price_data = stock_close_price_data[:, :-1]
-    # 接下来，如果取一段时间的数据，那我们只需要拿到数据尾部那行的labels就可以了
-    label_matrix = np.zeros([stock_close_price_data.shape[0], stock_close_price_data.shape[1] - 1,2])
-    print(label_matrix.shape)
-    for index in range(stock_close_price_data.shape[0]):
-        for col in range(label_matrix.shape[0]):
-            temp = stock_close_price_data[index][col + 1] - stock_close_price_data[index][col]
-            if temp >= 0:
-                label_matrix[index,col,:] =[1.0,0.0]
-            else:
-                label_matrix[index,col,] = [0.0,1.0]'''
-    # 生成好标签后，再对应去掉最后一个交易日的数据因为没有labels
-    stock_close_price_data = stock_close_price_data[:, :-1]
-    # 接下来，如果取一段时间的数据，那我们只需要拿到数据尾部那行的labels就可以了
-    # print(stock_close_price_data.shape)
-    # print(label_matrix)
-    stock_close_price_data = stock_close_price_data.T
-    stock_close_price_data = np.expand_dims(stock_close_price_data,axis=-1)
-    # label_matrix = np.transpose(label_matrix,[1,0,2])
-    # label_matrix = label_matrix.reshape([label_matrix.shape[1],label_matrix.shape[0],label_matrix.shape[-1]])
-    print('**********************************')
-    print('positive samples:{} negative samples:{}'.format(positive_sample,negative_sample))
-    print('**********************************')
-    return stock_close_price_data, label_matrix
-##########################################################################
-
-
-######################multi_feature_classification########################
-
-def load_ST_data_multi_feature(data_path, market_name, steps=1):
-    eod_data = []
-    masks = []
-    ground_truth = []
-    base_price = []
-    industry_ticker = filter_industry_tickers(market_name)
-    tickers_list = [i for ii in industry_ticker.values() for i in ii]
-    tickers = tickers_list
-    for index, ticker in enumerate(tickers): # for each stock
-        single_EOD = np.genfromtxt(
-            os.path.join(data_path, market_name + '_' + ticker + '_1.csv'),
-            dtype=np.float32, delimiter=',', skip_header=False
-        )
-        if market_name == 'NASDAQ' or market_name == 'NYSE':
-            # remove the last day since lots of missing data
-            single_EOD = single_EOD[:-1, :]
-        if index == 0:
-            # original feature after norm: [time_index, 5-day, 10-day, 20-day, 30-day, close_price]
-            print('single EOD data shape:', single_EOD.shape) # (1245, 6) (time_length, original_feature)
-
-            # eod_data = (1026, 1245, 5) (stock_number, time_length, feature_number)
-            eod_data = np.zeros([len(tickers), single_EOD.shape[0],
-                                 single_EOD.shape[1] - 1], dtype=np.float32)
-            # masks = (1026,1245)
-            masks = np.ones([len(tickers), single_EOD.shape[0]],
-                            dtype=np.float32)
-            # ground_truth = (1026, 1245)
-            ground_truth = np.zeros([len(tickers), single_EOD.shape[0]],
-                                    dtype=np.float32)
-            # base_price = (1026, 1245)
-            base_price = np.zeros([len(tickers), single_EOD.shape[0]],
-                                  dtype=np.float32)
-        for row in range(single_EOD.shape[0]): # for each trading day
-            if abs(single_EOD[row][-1] + 1234) < 1e-8: # if the close price is none
-                masks[index][row] = 0.0 # the target stock's mask in that trading day is 0.0
-            elif row > steps - 1 and abs(single_EOD[row - steps][-1] + 1234) \
-                    > 1e-8: # if the close price is not none, the ground truth is ((close_price_t - close_price_t-1) / close_price_t-1)
-                ground_truth[index][row] = \
-                    (single_EOD[row][-1] - single_EOD[row - steps][-1]) / \
-                    single_EOD[row - steps][-1]
-            for col in range(single_EOD.shape[1]): # for each feature
-                if abs(single_EOD[row][col] + 1234) < 1e-8: # if the feature in that trading day is none
-                    single_EOD[row][col] = 1.1 # set that feature equal to 1.1
-
-        eod_data[index, :, :] = single_EOD[:, 1:] # set the stock eod_data as the latest single_EOD expect the time_index col
-        base_price[index, :] = single_EOD[:, -1] # set the base_price, ie. the close_price
-        X = base_price.T
-        if len(base_price.shape) == 2:
-            X = np.expand_dims(X, axis=-1)
-    # print('eod_data.shape:{}'.format(eod_data.shape))
-    # return eod_data, masks, ground_truth, base_price
-    return base_price,eod_data
-
-def load_ST_data_classification_multi_feature(data_path, market_name, steps=1):
-    stock_close_price_data,eod_data = load_ST_data_multi_feature(data_path=data_path, market_name=market_name, steps=steps)  # (1245,840,1)
-    stock_close_price_data = np.squeeze(stock_close_price_data)  # (840,1245) (stock_num,close_price)
-    print('stock_close_price_data.shape:{}'.format(stock_close_price_data.shape))
-    # print(stock_close_price_data)
-    # 根据stock_close_price_data 生成标签，实际上就是做矩阵的差分
-    label_matrix = np.zeros([stock_close_price_data.shape[0], stock_close_price_data.shape[1] - 1,2])
-    # print(label_matrix.shape)
-    for index in range(stock_close_price_data.shape[0]):
-        for col in range(label_matrix.shape[1]):
-            temp = stock_close_price_data[index][col + 1] - stock_close_price_data[index][col]
-            if temp >= 0:
-                # label_matrix[index][:] =[1.0,0.0]
-                label_matrix[index,col,:] =[1.0,0.0]
-            else:
-                # label_matrix[index][:] = [0.0,1.0]
-                label_matrix[index,col,:] = [0.0,1.0]
-    # 生成好标签后，再对应去掉最后一个交易日的数据因为没有labels
-    stock_close_price_data = stock_close_price_data[:, :-1]
-    # 接下来，如果取一段时间的数据，那我们只需要拿到数据尾部那行的labels就可以了
-    # print(stock_close_price_data.shape)
-    # print(label_matrix)
-    stock_close_price_data = stock_close_price_data.T
-    stock_close_price_data = np.expand_dims(stock_close_price_data,axis=-1)
-    # original_label_matrix = np.transpose(label_matrix,[1,0,2])
-    label_matrix = label_matrix.reshape([label_matrix.shape[1],label_matrix.shape[0],label_matrix.shape[-1]])
-    eod_data = eod_data[:,:-1,:]
-    eod_data = eod_data.reshape([eod_data.shape[1],eod_data.shape[0],eod_data.shape[-1]])
-    return eod_data, label_matrix
-######################multi_feature_classification########################
 
 #################################ACL18####################################
 # 获取stock_id （文件名）
@@ -1074,7 +598,6 @@ def load_ST_data_classification_multi_feature_ACL18(data_path):
     print('AAPL label:')
     print(label_matrix[-10:,0,:])
     return eod_data, label_matrix
-#################################ACL18####################################
 
 #################################ACL18-11features####################################
 
@@ -1131,86 +654,6 @@ def load_ST_data_classification_multi_11features_ACL18(data_path):
     return eod_data
 
 #################################ACL18-11features####################################
-
-##########ADGAT-Dataset-198 stocks-5features#########################################
-def load_dataset():
-    # original data with 730 trading dates
-    '''with open('./data/ADGAT/x_numerical.pkl', 'rb') as handle:
-        markets = pickle.load(handle)
-        # markets = np.reshape(markets,[markets.shape[1],markets.shape[0],markets.shape[-1]])
-    with open('./data/ADGAT/y_.pkl', 'rb') as handle:
-        y_load = pickle.load(handle)
-        # y_load = np.reshape(y_load,[y_load.shape[1],y_load.shape[0]])
-    '''
-    '''
-    # update data with 700 trading dates
-    with open('./data/ADGAT/latest_x_numerical_aastgcn.pkl', 'rb') as handle:
-        markets = pickle.load(handle)
-        # markets = np.reshape(markets,[markets.shape[1],markets.shape[0],markets.shape[-1]])
-    with open('./data/ADGAT/latest_y_numerical_aastgcn.pkl', 'rb') as handle:
-        y_load = pickle.load(handle)
-        # y_load = np.reshape(y_load,[y_load.shape[1],y_load.shape[0]])
-    '''
-    '''
-    # update data with close price labels 700 samples
-    with open('./data/ADGAT/x_numerical.pkl', 'rb') as handle:
-        markets = pickle.load(handle)
-        # markets = np.reshape(markets,[markets.shape[1],markets.shape[0],markets.shape[-1]])
-    with open('./data/ADGAT/close_y_aastgcn.pkl', 'rb') as handle:
-        y_load = pickle.load(handle)
-        # y_load = np.reshape(y_load,[y_load.shape[1],y_load.shape[0]])
-   '''
-    '''
-   
-   # update data with close price labels 730 samples
-    with open('./data/ADGAT/x_numerical.pkl', 'rb') as handle:
-        markets = pickle.load(handle)
-        # markets = np.reshape(markets,[markets.shape[1],markets.shape[0],markets.shape[-1]])
-    with open('./data/ADGAT/close_y_ADGAT_730.pkl', 'rb') as handle:
-        y_load = pickle.load(handle)
-        # y_load = np.reshape(y_load,[y_load.shape[1],y_load.shape[0]])
-    '''
-   # update data with close price labels 730 samples and 10 features
-    with open('./data/ADGAT/x_numerical_aastgcn_10features_730.pkl', 'rb') as handle:
-        markets = pickle.load(handle)
-        # markets = np.reshape(markets,[markets.shape[1],markets.shape[0],markets.shape[-1]])
-    with open('./data/ADGAT/close_y_ADGAT_730.pkl', 'rb') as handle:
-        y_load = pickle.load(handle)
-        # y_load = np.reshape(y_load,[y_load.shape[1],y_load.shape[0]])
-    '''
-   # update data with close price labels 700 samples and 10 features
-    with open('./data/ADGAT/x_numerical_aastgcn_10features_700.pkl', 'rb') as handle:
-        markets = pickle.load(handle)
-        # markets = np.reshape(markets,[markets.shape[1],markets.shape[0],markets.shape[-1]])
-    with open('./data/ADGAT/close_y_aastgcn.pkl', 'rb') as handle:
-        y_load = pickle.load(handle)
-        # y_load = np.reshape(y_load,[y_load.shape[1],y_load.shape[0]])'''
-    markets = markets.astype(np.float64)
-    x = torch.tensor(markets)
-    x.to(torch.double)
-
-    y = torch.tensor(y_load)
-    y = (y>0).to(torch.long)
-    x = np.array(x)
-    y = np.array(y)
-    Label_matrix = np.zeros([y_load.shape[0], y_load.shape[1], 2])
-    positive_samples = 0
-    negative_samples = 0
-    for index in range(y_load.shape[0]):
-        for col in range(y_load.shape[1]):
-            # print(y_load[index][col])
-            if y[index][col] == 1:
-                Label_matrix[index, col, :] = [1.0, 0.0]
-                positive_samples += 1
-            else:
-                Label_matrix[index, col, :] = [0.0, 1.0]
-                negative_samples += 1
-    print('***********************************')
-    print('positive samples:{} negative samples:{}'.format(positive_samples, negative_samples))
-    print('***********************************')
-    return x, Label_matrix
-##########ADGAT-Dataset-198 stocks-5features#########################################
-
 
 ##############################################################################KDD17
 def data_transform(x):

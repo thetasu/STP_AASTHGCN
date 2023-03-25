@@ -7,7 +7,7 @@ from sklearn.metrics import mean_squared_error
 from lib.metrics import masked_mape_np
 from scipy.sparse.linalg import eigs
 from sklearn.metrics import r2_score
-from p_value_test import p_test
+# from p_value_test import p_test
 from sklearn import metrics
 import pandas as pd
 def np_mape(y_true, y_pred):
