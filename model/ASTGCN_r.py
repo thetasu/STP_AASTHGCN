@@ -287,8 +287,6 @@ class AAST_block(nn.Module):
         
         # original time_conv with LN
         # self.time_conv = nn.Conv2d(nb_chev_filter, nb_time_filter, kernel_size=(1, 3), stride=(1, time_strides), padding=(0, 1))
-        
-        # 2022-08-26 尝试加入weight norm 替换上述Layer Norm
         self.time_conv = nn.utils.weight_norm(nn.Conv2d(nb_chev_filter, nb_time_filter, kernel_size=(1, 3), stride=(1, time_strides), padding=(0, 1)))
         
         self.residual_conv = nn.Conv2d(in_channels, nb_time_filter, kernel_size=(1, 1), stride=(1, time_strides))
@@ -365,7 +363,7 @@ class ASTGCN_framework(nn.Module):
 
         super(ASTGCN_framework, self).__init__()
         self.num_node = num_of_vertices
-        self.embed_dim = 80
+        self.embed_dim = 100
         self.node_embeddings = nn.Parameter(torch.randn(self.num_node, self.embed_dim), requires_grad=True) # N,d
 
         self.BlockList = nn.ModuleList([AAST_block(DEVICE, in_channels, K, nb_chev_filter, nb_time_filter, time_strides, num_of_vertices, len_input)])

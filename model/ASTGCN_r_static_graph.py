@@ -109,29 +109,17 @@ class Sparse_Spatial_Attention_layer(nn.Module):
         # A2: Sparse operation-mean↑
         zero = torch.zeros_like(S)
         # Sparse_S_normalized = torch.where(S_normalized < torch.mean(S_normalized) , zero, S_normalized)
-
-        # A2-1: try to increase the downsampling size based on mean operation ↓↓
-        # Sparse_S_normalized = torch.where(S_normalized < torch.mean(S_normalized)/0.8, zero, S_normalized)
-        # Sparse_S_normalized = torch.where(S_normalized < torch.div(torch.mean(S_normalized),0.8), zero, S_normalized)
-
-        #A2-2:try to decrease the downsampling size based on mean operation
-        # Sparse_S_normalized = torch.where(S_normalized < torch.div(torch.mean(S_normalized),0.5),zero,S_normalized)
         
         # original setting delta= 0.6 will better
         Sparse_S_normalized = torch.where(S_normalized < torch.div(torch.mean(S_normalized),0.6),zero,S_normalized)
         # Sparse_S_normalized = torch.where(S_normalized < torch.mean(S_normalized),zero,S_normalized)
-        
-        # print('Sparse_S_normalized:{}'.format(Sparse_S_normalized.shape))
-        # print(Sparse_S_normalized[0,:,0])
         # return Sparse_S_normalized
 
         # A3: Sparse operation-mean + resoftmax↑↑ best
         Sparse_S_normalized_resoftmax = F.softmax(Sparse_S_normalized,dim=1)
         # print('Sparse_S_normalized_resoftmax:{}'.format(Sparse_S_normalized_resoftmax))
         return Sparse_S_normalized_resoftmax
-        
-        # TODO
-        # A4: log-sparse operation u=cln(n)??? [Informer]
+
 
 
 # original cheb_conv in astgcn
@@ -325,15 +313,6 @@ class AAST_block(nn.Module):
 
         # residual shortcut
         x_residual = self.residual_conv(x.permute(0, 2, 1, 3))  # (b,N,F,T)->(b,F,N,T) 用(1,1)的卷积核去做->(b,F,N,T)
-
-        # original use relu as activation function
-        # x_residual = self.ln(F.relu(x_residual + time_conv_output).permute(0, 3, 2, 1)).permute(0, 2, 3, 1)
-        # (b,F,N,T)->(b,T,N,F) -ln-> (b,T,N,F)->(b,N,F,T)
-        
-        # 2022-07-31 将relu替换成其他激活函数，看看能否解决AUC异常的问题
-        #x_residual = self.ln(F.elu(x_residual + time_conv_output).permute(0, 3, 2, 1)).permute(0, 2, 3, 1)
-        
-        # 尝试去掉relu,mcc结果相对来说更加稳定了一点
         x_residual = self.ln((x_residual + time_conv_output).permute(0, 3, 2, 1)).permute(0, 2, 3, 1)
         
         return x_residual
@@ -355,7 +334,7 @@ class ASTGCN_framework(nn.Module):
 
         super(ASTGCN_framework, self).__init__()
         self.num_node = num_of_vertices
-        self.embed_dim = 80
+        self.embed_dim = 100
         self.node_embeddings = nn.Parameter(torch.randn(self.num_node, self.embed_dim), requires_grad=True) # N,d
 
         self.BlockList = nn.ModuleList([AAST_block(DEVICE, in_channels, K, nb_chev_filter, nb_time_filter, time_strides, num_of_vertices, len_input)])
