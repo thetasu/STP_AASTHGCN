@@ -2,8 +2,156 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1970b6cc-20ae-446b-99c7-28eac09717f7" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/model/ASTGCN_r.py" afterPath="$PROJECT_DIR$/model/ASTGCN_r.py" />
-      <change beforePath="$PROJECT_DIR$/model/ASTGCN_r_static_graph.py" afterPath="$PROJECT_DIR$/model/ASTGCN_r_static_graph.py" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_latest_new_ourpped_err/AAPL.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_latest_new_ourpped_err/AMZN.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_latest_new_ourpped_err/BA.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_latest_new_ourpped_err/BAC.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_latest_new_ourpped_err/BHP.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_latest_new_ourpped_err/BRK-B.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_latest_new_ourpped_err/CHL.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_latest_new_ourpped_err/CMCSA.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_latest_new_ourpped_err/CVX.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_latest_new_ourpped_err/D.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_latest_new_ourpped_err/DCM.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_latest_new_ourpped_err/DIS.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_latest_new_ourpped_err/DOW.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_latest_new_ourpped_err/DUK.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_latest_new_ourpped_err/EXC.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_latest_new_ourpped_err/GE.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_latest_new_ourpped_err/GOOGL.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_latest_new_ourpped_err/HD.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_latest_new_ourpped_err/INTC.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_latest_new_ourpped_err/JNJ.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_latest_new_ourpped_err/JPM.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_latest_new_ourpped_err/KO.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_latest_new_ourpped_err/MA.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_latest_new_ourpped_err/MMM.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_latest_new_ourpped_err/MO.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_latest_new_ourpped_err/MRK.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_latest_new_ourpped_err/MSFT.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_latest_new_ourpped_err/NGG.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_latest_new_ourpped_err/NTT.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_latest_new_ourpped_err/NVS.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_latest_new_ourpped_err/ORCL.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_latest_new_ourpped_err/PEP.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_latest_new_ourpped_err/PFE.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_latest_new_ourpped_err/PG.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_latest_new_ourpped_err/PTR.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_latest_new_ourpped_err/RDS-B.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_latest_new_ourpped_err/RIO.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_latest_new_ourpped_err/SO.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_latest_new_ourpped_err/SPY.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_latest_new_ourpped_err/SYT.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_latest_new_ourpped_err/T.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_latest_new_ourpped_err/TM.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_latest_new_ourpped_err/TOT.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_latest_new_ourpped_err/UNH.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_latest_new_ourpped_err/UPS.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_latest_new_ourpped_err/VALE.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_latest_new_ourpped_err/VZ.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_latest_new_ourpped_err/WFC.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_latest_new_ourpped_err/WMT.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_latest_new_ourpped_err/XOM.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_new_ourpped_err/AAPL.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_new_ourpped_err/AMZN.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_new_ourpped_err/BA.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_new_ourpped_err/BAC.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_new_ourpped_err/BHP.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_new_ourpped_err/BRK-B.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_new_ourpped_err/CHL.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_new_ourpped_err/CMCSA.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_new_ourpped_err/CVX.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_new_ourpped_err/D.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_new_ourpped_err/DCM.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_new_ourpped_err/DIS.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_new_ourpped_err/DOW.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_new_ourpped_err/DUK.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_new_ourpped_err/EXC.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_new_ourpped_err/GE.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_new_ourpped_err/GOOGL.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_new_ourpped_err/HD.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_new_ourpped_err/INTC.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_new_ourpped_err/JNJ.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_new_ourpped_err/JPM.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_new_ourpped_err/KO.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_new_ourpped_err/MA.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_new_ourpped_err/MMM.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_new_ourpped_err/MO.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_new_ourpped_err/MRK.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_new_ourpped_err/MSFT.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_new_ourpped_err/NGG.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_new_ourpped_err/NTT.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_new_ourpped_err/NVS.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_new_ourpped_err/ORCL.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_new_ourpped_err/PEP.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_new_ourpped_err/PFE.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_new_ourpped_err/PG.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_new_ourpped_err/PTR.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_new_ourpped_err/RDS-B.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_new_ourpped_err/RIO.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_new_ourpped_err/SO.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_new_ourpped_err/SPY.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_new_ourpped_err/SYT.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_new_ourpped_err/T.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_new_ourpped_err/TM.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_new_ourpped_err/TOT.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_new_ourpped_err/UNH.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_new_ourpped_err/UPS.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_new_ourpped_err/VALE.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_new_ourpped_err/VZ.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_new_ourpped_err/WFC.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_new_ourpped_err/WMT.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/latest_new_ourpped_err/XOM.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/price_long_50/AAPL.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/price_long_50/AMZN.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/price_long_50/BA.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/price_long_50/BAC.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/price_long_50/BHP.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/price_long_50/BRK-B.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/price_long_50/CHL.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/price_long_50/CMCSA.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/price_long_50/CVX.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/price_long_50/D.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/price_long_50/DCM.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/price_long_50/DIS.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/price_long_50/DOW.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/price_long_50/DUK.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/price_long_50/EXC.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/price_long_50/GE.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/price_long_50/GOOGL.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/price_long_50/HD.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/price_long_50/INTC.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/price_long_50/JNJ.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/price_long_50/JPM.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/price_long_50/KO.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/price_long_50/MA.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/price_long_50/MMM.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/price_long_50/MO.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/price_long_50/MRK.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/price_long_50/MSFT.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/price_long_50/NGG.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/price_long_50/NTT.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/price_long_50/NVS.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/price_long_50/ORCL.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/price_long_50/PEP.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/price_long_50/PFE.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/price_long_50/PG.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/price_long_50/PTR.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/price_long_50/RDS-B.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/price_long_50/RIO.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/price_long_50/SO.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/price_long_50/SPY.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/price_long_50/SYT.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/price_long_50/T.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/price_long_50/TM.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/price_long_50/TOT.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/price_long_50/UNH.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/price_long_50/UPS.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/price_long_50/VALE.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/price_long_50/VZ.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/price_long_50/WFC.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/price_long_50/WMT.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/KDD17/price_long_50/XOM.csv" afterPath="" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -17,11 +165,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ASTGCN_r.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ASTGCN_r.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/model/ASTGCN_r.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="351">
-              <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+            <state relative-caret-position="675">
+              <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
               <folding>
                 <element signature="e#23#35#0" expanded="true" />
               </folding>
@@ -32,9 +180,11 @@
       <file leaf-file-name="train_ASTGCN_r.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/train_ASTGCN_r.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2535">
-              <caret line="12" column="45" lean-forward="false" selection-start-line="12" selection-start-column="22" selection-end-line="12" selection-end-column="45" />
-              <folding />
+            <state relative-caret-position="540">
+              <caret line="89" column="108" lean-forward="false" selection-start-line="89" selection-start-column="108" selection-end-line="89" selection-end-column="108" />
+              <folding>
+                <element signature="e#38#50#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -43,7 +193,7 @@
         <entry file="file://$PROJECT_DIR$/configurations/ACL18_aastgcn.conf">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="162">
-              <caret line="6" column="10" lean-forward="true" selection-start-line="6" selection-start-column="10" selection-end-line="6" selection-end-column="10" />
+              <caret line="6" column="10" lean-forward="false" selection-start-line="6" selection-start-column="10" selection-end-line="6" selection-end-column="10" />
               <folding />
             </state>
           </provider>
@@ -62,8 +212,8 @@
       <file leaf-file-name="ASTGCN_r_static_graph.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/model/ASTGCN_r_static_graph.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="320" column="34" lean-forward="true" selection-start-line="320" selection-start-column="34" selection-end-line="320" selection-end-column="34" />
+            <state relative-caret-position="8640">
+              <caret line="320" column="34" lean-forward="false" selection-start-line="320" selection-start-column="34" selection-end-line="320" selection-end-column="34" />
               <folding>
                 <element signature="e#23#35#0" expanded="true" />
               </folding>
@@ -94,8 +244,8 @@
       <file leaf-file-name="method_replay_update.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/method_replay_update.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="786">
-              <caret line="784" column="0" lean-forward="true" selection-start-line="784" selection-start-column="0" selection-end-line="784" selection-end-column="0" />
+            <state relative-caret-position="408">
+              <caret line="83" column="59" lean-forward="false" selection-start-line="83" selection-start-column="59" selection-end-line="83" selection-end-column="59" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
                 <element signature="e#15540#18539#0" expanded="false" />
@@ -103,6 +253,18 @@
                 <element signature="e#21909#22137#0" expanded="false" />
                 <element signature="e#31716#31871#0" expanded="false" />
                 <element signature="e#32016#34063#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="generate_new_dataset_kdd17.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/data/KDD17/generate_new_dataset_kdd17.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="638">
+              <caret line="188" column="35" lean-forward="false" selection-start-line="188" selection-start-column="35" selection-end-line="188" selection-end-column="35" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -153,6 +315,7 @@
     </navigator>
     <panes>
       <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -179,6 +342,12 @@
             <path>
               <item name="STP_AASTHGCN" type="b2602c69:ProjectViewProjectNode" />
               <item name="STP_AASTHGCN" type="462c0819:PsiDirectoryNode" />
+              <item name="data" type="462c0819:PsiDirectoryNode" />
+              <item name="KDD17" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="STP_AASTHGCN" type="b2602c69:ProjectViewProjectNode" />
+              <item name="STP_AASTHGCN" type="462c0819:PsiDirectoryNode" />
               <item name="experiments" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -195,7 +364,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -266,9 +434,8 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39707673" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25586355" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2585288" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="R Packages" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="R Graphics" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -276,14 +443,15 @@
       <window_info id="SciView" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39707673" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -323,6 +491,83 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/model/ASTGCN_r.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#23#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/train_ASTGCN_r.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="12" column="45" lean-forward="false" selection-start-line="12" selection-start-column="22" selection-end-line="12" selection-end-column="45" />
+          <folding>
+            <element signature="e#38#50#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/configurations/ACL18_aastgcn.conf">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="6" column="10" lean-forward="true" selection-start-line="6" selection-start-column="10" selection-end-line="6" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/configurations/KDD17_aastgcn.conf">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/ASTGCN_r_static_graph.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="8640">
+          <caret line="320" column="34" lean-forward="true" selection-start-line="320" selection-start-column="34" selection-end-line="320" selection-end-column="34" />
+          <folding>
+            <element signature="e#23#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/metrics.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="10" column="27" lean-forward="false" selection-start-line="10" selection-start-column="27" selection-end-line="10" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/method_replay_update.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17928">
+          <caret line="784" column="0" lean-forward="true" selection-start-line="784" selection-start-column="0" selection-end-line="784" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+            <element signature="e#15540#18539#0" expanded="false" />
+            <element signature="e#21573#21857#0" expanded="false" />
+            <element signature="e#21909#22137#0" expanded="false" />
+            <element signature="e#31716#31871#0" expanded="false" />
+            <element signature="e#32016#34063#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/model/ASTGCN_r.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -476,10 +721,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/train_ASTGCN_r.py">
+    <entry file="file://$PROJECT_DIR$/model/ASTGCN_r_static_graph.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2535">
-          <caret line="12" column="45" lean-forward="false" selection-start-line="12" selection-start-column="22" selection-end-line="12" selection-end-column="45" />
+        <state relative-caret-position="8640">
+          <caret line="320" column="34" lean-forward="false" selection-start-line="320" selection-start-column="34" selection-end-line="320" selection-end-column="34" />
+          <folding>
+            <element signature="e#23#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/ASTGCN_r.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="675">
+          <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+          <folding>
+            <element signature="e#23#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/configurations/ACL18_aastgcn.conf">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="6" column="10" lean-forward="false" selection-start-line="6" selection-start-column="10" selection-end-line="6" selection-end-column="10" />
           <folding />
         </state>
       </provider>
@@ -492,18 +757,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/configurations/ACL18_aastgcn.conf">
+    <entry file="file://$PROJECT_DIR$/train_ASTGCN_r.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="6" column="10" lean-forward="true" selection-start-line="6" selection-start-column="10" selection-end-line="6" selection-end-column="10" />
-          <folding />
+        <state relative-caret-position="540">
+          <caret line="89" column="108" lean-forward="false" selection-start-line="89" selection-start-column="108" selection-end-line="89" selection-end-column="108" />
+          <folding>
+            <element signature="e#38#50#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/method_replay_update.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="786">
-          <caret line="784" column="0" lean-forward="true" selection-start-line="784" selection-start-column="0" selection-end-line="784" selection-end-column="0" />
+        <state relative-caret-position="408">
+          <caret line="83" column="59" lean-forward="false" selection-start-line="83" selection-start-column="59" selection-end-line="83" selection-end-column="59" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
             <element signature="e#15540#18539#0" expanded="false" />
@@ -515,22 +782,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model/ASTGCN_r_static_graph.py">
+    <entry file="file://$PROJECT_DIR$/data/KDD17/generate_new_dataset_kdd17.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="320" column="34" lean-forward="true" selection-start-line="320" selection-start-column="34" selection-end-line="320" selection-end-column="34" />
+        <state relative-caret-position="638">
+          <caret line="188" column="35" lean-forward="false" selection-start-line="188" selection-start-column="35" selection-end-line="188" selection-end-column="35" />
           <folding>
-            <element signature="e#23#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/model/ASTGCN_r.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="351">
-          <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-          <folding>
-            <element signature="e#23#35#0" expanded="true" />
+            <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
