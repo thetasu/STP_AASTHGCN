@@ -105,50 +105,30 @@ class Sparse_Spatial_Attention_layer(nn.Module):
         # Ablation Study
         # A1: without cut s operation
         # return S_normalized
-        
-         
+
         # A2: Sparse operation-mean↑
         zero = torch.zeros_like(S)
-        # Sparse_S_normalized = torch.where(S_normalized < torch.mean(S_normalized) , zero, S_normalized)
-
-        # A2-1: try to increase the downsampling size based on mean operation ↓↓
-        # Sparse_S_normalized = torch.where(S_normalized < torch.mean(S_normalized)/0.8, zero, S_normalized)
-        # Sparse_S_normalized = torch.where(S_normalized < torch.div(torch.mean(S_normalized),0.8), zero, S_normalized)
-
-        #A2-2:try to decrease the downsampling size based on mean operation
-        # Sparse_S_normalized = torch.where(S_normalized < torch.div(torch.mean(S_normalized),0.5),zero,S_normalized)
-        
         # default theta is 0.6 and 0.1 corresponding overall results. 
         theta = 0.6
-        # original setting delta= 0.6(ACL18) and 0.1(KDD17) will better
         Sparse_S_normalized = torch.where(S_normalized < torch.div(torch.mean(S_normalized),theta),zero,S_normalized)
-        # Sparse_S_normalized = torch.where(S_normalized < torch.mean(S_normalized),zero,S_normalized)
-        
-        # print('Sparse_S_normalized:{}'.format(Sparse_S_normalized.shape))
-        # print(Sparse_S_normalized[0,:,0])
-        # return Sparse_S_normalized
         print('Sparse_S_normalized:')
         print(Sparse_S_normalized)
         # A3: Sparse operation-mean + resoftmax↑↑ best
         Sparse_S_normalized_resoftmax = F.softmax(Sparse_S_normalized,dim=1)
          
         print('Sparse_S_normalized_resoftmax.shape:{}'.format(Sparse_S_normalized_resoftmax.shape))
-        # print('Sparse_S_normalized_resoftmax:{}'.format(Sparse_S_normalized_resoftmax))
-        # spatial_attention = torch.mean(Sparse_S_normalized_resoftmax,dim=0).detach().cpu().numpy()
-        spatial_attention = Sparse_S_normalized_resoftmax[-1].detach().cpu().numpy()
-        np.savetxt('sparse_spatial_attention.csv', spatial_attention,delimiter=',')
-        print('save success')
-        '''
+
+
+        # spatial_attention = Sparse_S_normalized_resoftmax[-1].detach().cpu().numpy()
+        # np.savetxt('sparse_spatial_attention.csv', spatial_attention,delimiter=',')
+        # print('save success')
+
         print('Sparse_S_normalized_resoftmax:')
         print(Sparse_S_normalized_resoftmax)
         # original best results
         # return Sparse_S_normalized_resoftmax
         return Sparse_S_normalized
-        '''
 
-
-        # TODO
-        # A4: log-sparse operation u=cln(n)??? [Informer]
         
 
 # original cheb_conv in astgcn
@@ -333,8 +313,7 @@ class AAST_block(nn.Module):
         # print('X_TAt.shape:{}'.format(x_TAt.shape)) # B,N,F,T
         # x_TAt = x
         # Ablation Study for Temporal Attention End
-        
-        
+
         # SAt
         spatial_At = self.SAt(x_TAt)
 
@@ -352,7 +331,6 @@ class AAST_block(nn.Module):
         # Ablation Study for TaCC
         # temp = spatial_gcn.permute(0,2,1,3)
         # x_residual = self.ln(temp.permute(0, 3, 2, 1)).permute(0, 2, 3, 1)
-        
 
         
         # original TaCC
@@ -361,18 +339,12 @@ class AAST_block(nn.Module):
 
         # residual shortcut
         x_residual = self.residual_conv(x.permute(0, 2, 1, 3))  # (b,N,F,T)->(b,F,N,T) 用(1,1)的卷积核去做->(b,F,N,T)
-        # print('cascaded.shape:{}'.format((x_residual + time_conv_output).shape))
         # original use relu as activation function
         # x_residual = self.ln(F.relu(x_residual + time_conv_output).permute(0, 3, 2, 1)).permute(0, 2, 3, 1)
         # (b,F,N,T)->(b,T,N,F) -ln-> (b,T,N,F)->(b,N,F,T)
-        
-        # 2022-07-31 将relu替换成其他激活函数，看看能否解决AUC异常的问题
-        #x_residual = self.ln(F.elu(x_residual + time_conv_output).permute(0, 3, 2, 1)).permute(0, 2, 3, 1)
-        
-        # 尝试去掉relu,mcc结果相对来说更加稳定了一点 original best LN norm
+
         x_residual = self.ln((x_residual + time_conv_output).permute(0, 3, 2, 1)).permute(0, 2, 3, 1)
-        # Weight Norm 暂时没跑通
-        # x_residual = self.wn((x_residual + time_conv_output).permute(0, 3, 2, 1)).permute(0, 2, 3, 1)
+
         
         return x_residual, spatial_At
 
@@ -469,17 +441,12 @@ class ASTGCN_framework_classification(nn.Module):
 
         output = self.final_conv(x.permute(0, 3, 1, 2))[:, :, :, -1].permute(0, 2, 1)
         # (b,N,F,T)->(b,T,N,F)-conv<1,F>->(b,c_out*T,N,1)->(b,c_out*T,N)->(b,N,T)
-        # print('output.shape:{}'.format(output.shape))
-        # output = self.sigmoid(self.linear(output))
-        ### output = F.softmax(torch.sigmoid(self.fc1(output)),dim=1)
         output = self.fc1(output)
         # print('output.shape:{}'.format(output.shape))
         
         # original method
         output = F.softmax(output,dim=-1)
-        # print('output after linear and sigmoid.shape:{}'.format(output.shape))
-        # 2022-07-31 try to change softmax to sigmoid useless, cause aoc=0.5
-        # output = F.sigmoid(output)
+
         return output,sat
 
 def make_model(DEVICE, nb_block, in_channels, K, nb_chev_filter, nb_time_filter, time_strides, num_for_predict, len_input, num_of_vertices):

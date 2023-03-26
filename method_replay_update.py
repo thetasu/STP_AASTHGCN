@@ -506,7 +506,7 @@ def load_ST_data_multi_feature_ACL18(data_path):
     ### Industrial Goods
     # clear_stock_id_list = ['GE','MMM','BA','HON','UTX','LMT','CAT','GD','DHR','ABB']
     ### Technology
-    clear_stock_id_list = ['GOOG','MSFT','FB','T','CHL','ORCL','TSM','VZ','INTC','CSCO']
+    # clear_stock_id_list = ['GOOG','MSFT','FB','T','CHL','ORCL','TSM','VZ','INTC','CSCO']
     clear_stock_id_list.sort()
     print(clear_stock_id_list)
     # eod_data = []
@@ -633,7 +633,7 @@ def load_ST_data_classification_multi_11features_ACL18(data_path):
     ### Industrial Goods
     # clear_stock_id_list = ['GE','MMM','BA','HON','UTX','LMT','CAT','GD','DHR','ABB']
     ### Technology
-    clear_stock_id_list = ['GOOG','MSFT','FB','T','CHL','ORCL','TSM','VZ','INTC','CSCO']
+    # clear_stock_id_list = ['GOOG','MSFT','FB','T','CHL','ORCL','TSM','VZ','INTC','CSCO']
     clear_stock_id_list.sort()
     print(clear_stock_id_list)
     for index, ticker in enumerate(clear_stock_id_list):
